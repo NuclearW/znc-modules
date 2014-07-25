@@ -180,4 +180,4 @@ template<> void TModInfo<CPrivmsgAuto>(CModInfo& Info) {
 	Info.SetHasArgs(false);
 }
 
-NETWORKMODULEDEFS(CPrivmsgAuto, "Send outgoing PRIVMSGs and CTCP ACTIONs to other clients using ugly prefixes")
+NETWORKMODULEDEFS(CPrivmsgAuto, "Automatically switches between privmsg and privmsg_prefix behavior")
