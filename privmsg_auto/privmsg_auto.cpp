@@ -40,6 +40,7 @@ Textual IRC Client: www.textualapp.com — v5.0.0                      - Yes, from
 mIRC v7.29 Khaled Mardam-Bey                                         - Sometimes, requires a script, from wiki
 Using libcommuni 3.0.1 - http://communi.github.com                   - Yes, as informed by the author
 Colloquy 1.5.2 (5977) - iPhone OS 7.1.2 (ARM) - http://colloquy.mobi - Yes, from wiki
+Palaver (1.1.4 (839)) http://palaverapp.com//                        - Yes, from wiki
 
 No information:
 Android IRC Client (3.3.4 - Build 54a08b6 (dirty)-)                  - Not tested
@@ -73,6 +74,7 @@ public:
 		m_vCapableVersions.push_back(boost::regex("Yaaic")); // Version?
 		m_vCapableVersions.push_back(boost::regex("IRCCloud")); // Version?
 		m_vCapableVersions.push_back(boost::regex("Colloquy")); // Version?
+		m_vCapableVersions.push_back(boost::regex("Palaver")); // Version?
 		m_vCapableVersions.push_back(boost::regex("Using libcommuni 3\\.(?:[1-9]+|0\\.[1-9]+)"));
 		m_vCapableVersions.push_back(boost::regex("Textual .*(?:2\\.[1-9]{1}[0-9]*|[3-9]{1}[0-9]*)\\."));
 
