@@ -177,7 +177,6 @@ private:
 
 template<> void TModInfo<CPrivmsgAuto>(CModInfo& Info) {
 	Info.SetWikiPage("privmsg_auto");
-	Info.AddType(CModInfo::NetworkModule);
 	Info.SetHasArgs(false);
 }
 
