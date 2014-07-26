@@ -32,6 +32,7 @@ irssi v0.8.15                                                        - No, teste
 Android IRC v2.1.15                                                  - Yes, tested on Kindle Fire
 Yaaic - Yet another Android IRC client - http://www.yaaic.org        - Yes, tested with port on BB10 OS (no version info?)
 Communi 2.2.0                                                        - No, tested with TinCanIRC on BB10 OS
+smuxi-frontend-gnome 0.11.0.0 (dist-win32 0.11-rc5)                  - No, tested
 
 Informed:
 IRCCloud irccloud.com                                                - Yes, from wiki
