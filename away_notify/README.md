@@ -5,10 +5,10 @@ away_notify is a global module that blindly offers clients the [away-notify](htt
 
 **In it's current form it should only be used on installations where all networks are known to support away-notify.**
 
-Cavaets
+Caveats
 =
 
-At present modules which provide capabilities to clients can only be global modules, which can limit the application for some providers.  Additionally, while having ZNC recieve away-notify messages from servers is not a problem, during connection there is no way to know which network a client is connecting to, and thus no way to determine if away-notify is activated on the network and if it ought to be offered to the client.
+At present modules which provide capabilities to clients can only be global modules, which can limit the application for some providers.  Additionally, while having ZNC receive away-notify messages from servers is not a problem, during connection there is no way to know which network a client is connecting to, and thus no way to determine if away-notify is activated on the network and if it ought to be offered to the client.
 
 Namely, the problem is thus: We may tell a client away-notify is available when it is not on the network, disabling it's normal `WHO` polling to determine if users are away.
 
