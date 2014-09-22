@@ -17,3 +17,14 @@ These problems will be addressable properly once [cap-notify](https://github.com
 Note
 =
 If there is a demand for it (or if I get time) I may find a way to have the module do it's own `WHO` polling (and also piggy-back on any connected client doing so anyway) to produce `AWAY` messages for clients which have it enabled on networks that do not.
+
+away\_notify\_unsolicited
+=======================
+
+away\_notify\_unsolicited is a global module that requests the  [away-notify](https://github.com/ircv3/ircv3-specifications/blob/master/extensions/away-notify-3.1) capability from all IRC servers, and offers it unsolicited **after initial capability negotiation** to clients that connect to networks which have it enabled.
+
+**This module should be used when it is expected or known that clients will behave in a useful manner to unsolicited `CAP LS` messages.**
+
+Caveats
+=
+This version of the module attempts to work around above issues for away_notify, however this implementation relies no non-standard client behavior to be useful.  If a client does not enable capabilities after initial negotiation, or disables ones sent in later `CAP LS` that were previously enabled **this module should not be used**.

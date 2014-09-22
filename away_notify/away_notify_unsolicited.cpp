@@ -37,17 +37,43 @@ public:
 	// Later with cap-notify this may be relevant to us, but for now we can't do anything with it.
 	virtual void OnServerCapResult(const CString& sCap, bool bSuccess) {}
 
-	// At the moment we can only blindly offer the capability
-	virtual void OnClientCapLs(CClient* pClient, SCString &ssCaps) {
-		ssCaps.insert(m_sCapability);
-	}
+	// Do not offer the cap, we will send an unsolicited LS later to enable it if applicable.
+	virtual void OnClientCapLs(CClient* pClient, SCString &ssCaps) {}
 
 	// Since we later check on every incoming away-notify message if the clients connected will get it, we don't care about this.
 	virtual void OnClientCapRequest(CClient* pClient, const CString& sCap, bool bState) {}
 
 	// We sell away-notify and away-notify accessories
+	// More specifically, after our unsolicited LS we need znc to accept we can use it.
 	virtual bool IsClientCapSupported(CClient* pClient, const CString& sCap, bool bState) {
 		return sCap.Equals(m_sCapability);
+	}
+
+	// If the module was just loaded, check each network for away-notify and if a client doesn't have that's connected to it, offer it to the client.
+	virtual bool OnLoad(const CString& sArgsi, CString& sMessage) {
+		// TODO: There are at present too many hoops to jump through to do this.  So I don't.
+		return true;
+	}
+
+	// If we have clients already connected, the server has away-notify, and they do not have away-notify, offer it to them.
+	virtual void OnIRCConnected() {
+		// TODO: Do this
+		if(m_pNetwork && m_pNetwork->GetIRCSock() && m_pNetwork->GetIRCSock()->IsCapAccepted(m_sCapability) && !m_pNetwork->GetClients().empty()) {
+			for(CClient* client : m_pNetwork->GetClients()) {
+				if(!client->IsCapEnabled(m_sCapability)) {
+					client->PutClient(CString(":irc.znc.in CAP unknown-nick LS :") + m_sCapability);
+				}
+			}
+		}
+	}
+
+	// Once a client logs in, we now know their network.  If it has away-notify, offer it to the client.
+	virtual void OnClientLogin() {
+		if(m_pNetwork && m_pNetwork->GetIRCSock() && m_pNetwork->GetIRCSock()->IsCapAccepted(m_sCapability) && m_pClient) {
+			//CString sCapOffer = CString(" ").Join(m_pClient->m_ssAcceptedCaps.begin(), m_pClient->m_ssAcceptedCaps.end());
+			//sCapOffer += " " + m_sCapability;
+			m_pClient->PutClient(CString(":irc.znc.in CAP unknown-nick LS :") + m_sCapability);
+		}
 	}
 
 	virtual EModRet OnRaw(CString& sLine) {
@@ -72,4 +98,4 @@ template<> void TModInfo<CAwayNotify>(CModInfo& Info) {
 	Info.SetHasArgs(false);
 }
 
-GLOBALMODULEDEFS(CAwayNotify, "Provides IRCv3.1 away-notify")
+GLOBALMODULEDEFS(CAwayNotify, "Provides IRCv3.1 away-notify, using unsolicited CAP LS")
