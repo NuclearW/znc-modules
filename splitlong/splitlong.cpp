@@ -81,7 +81,7 @@ private:
 
 				// We must relay to other clients since we HALTCORE
 				if (m_pNetwork->IsChan(sTarget)) {
-					vector<CClient*>& vClients = m_pClient->GetClients();
+					const vector<CClient*>& vClients = m_pClient->GetClients();
 					for (unsigned int a = 0; a < vClients.size(); a++) {
 						CClient* pClient = vClients[a];
 						if (pClient != m_pClient) {
